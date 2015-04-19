@@ -19,6 +19,34 @@ class FlickrPhotosViewController : UICollectionViewController {
     func photoForIndexPath(indexPath: NSIndexPath) -> FlickrPhoto {
         return searches[indexPath.section].searchResults[indexPath.row]
     }
+    
+    var largePhotoIndexPath : NSIndexPath? {
+        didSet {
+            //2
+            var indexPaths = [NSIndexPath]()
+            if largePhotoIndexPath != nil {
+                indexPaths.append(largePhotoIndexPath!)
+            }
+            if oldValue != nil {
+                indexPaths.append(oldValue!)
+            }
+            //3
+            collectionView?.performBatchUpdates({
+                self.collectionView?.reloadItemsAtIndexPaths(indexPaths)
+                return
+                
+                }) // and now the trailing closure
+                {
+                    completed
+                    in
+                    //4
+                    if self.largePhotoIndexPath != nil {
+                        self.collectionView?.scrollToItemAtIndexPath(self.largePhotoIndexPath!, atScrollPosition: .CenteredVertically, animated: true)
+                    }
+            
+            }
+        }
+    }
 }
 
 extension FlickrPhotosViewController : UITextFieldDelegate {
@@ -64,12 +92,12 @@ extension FlickrPhotosViewController : UICollectionViewDataSource {
         return searches.count
     }
     
-    // 2
+    // 2 return the number of items here (like rows in tableview)
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return searches[section].searchResults.count
     }
     
-    // 3
+    // 3 return the cell here
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         
@@ -79,9 +107,52 @@ extension FlickrPhotosViewController : UICollectionViewDataSource {
         
         //2
         let flickrPhoto = photoForIndexPath(indexPath)
-        cell.backgroundColor = UIColor.blackColor()
+        
+
+        //1
+        cell.activityIndicator.stopAnimating()
+        
+        //2
+        if indexPath != largePhotoIndexPath {
+            cell.imageView.image = flickrPhoto.thumbnail
+            return cell
+        }
+        
         //3
+        if flickrPhoto.largeImage != nil {
+            cell.imageView.image = flickrPhoto.largeImage
+            return cell
+        }
+        
+        //4
         cell.imageView.image = flickrPhoto.thumbnail
+        cell.activityIndicator.startAnimating()
+        
+        //5
+        flickrPhoto.loadLargeImage {
+            loadedFlickrPhoto, error
+            in
+            //6
+            cell.activityIndicator.stopAnimating()
+            
+            //7
+            if error != nil {
+                return
+            }
+            
+            if loadedFlickrPhoto.largeImage == nil {
+            return
+            }
+            
+            // 8
+            if indexPath == self.largePhotoIndexPath {
+                
+                if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? FlickrPhotoCell {
+                    cell.imageView.image = loadedFlickrPhoto.largeImage
+                }
+            
+            }
+        }
         
         
         return cell
@@ -89,6 +160,29 @@ extension FlickrPhotosViewController : UICollectionViewDataSource {
         
         
     }
+    
+    // this method is for supplementary views, such as the header view
+    override func collectionView(collectionView: UICollectionView,
+        viewForSupplementaryElementOfKind kind: String,
+        atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+            
+            switch kind {
+                //2 
+            case UICollectionElementKindSectionHeader:
+                //3
+                let headerView =
+               collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "FlickrPhotoHeaderView", forIndexPath: indexPath) as! FlickrPhotoHeaderView
+                    
+                headerView.label.text = searches[indexPath.section].searchTerm
+                return headerView
+            default:
+                //4
+                assert(false, "Unexpected element kind")
+            }
+            
+            return UICollectionReusableView()
+    }
+    
 }
 
 extension FlickrPhotosViewController : UICollectionViewDelegateFlowLayout {
@@ -98,6 +192,16 @@ extension FlickrPhotosViewController : UICollectionViewDelegateFlowLayout {
         sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
             
             let flickrPhoto = photoForIndexPath(indexPath)
+            
+            // new code make the cell bigger for bigger photo on selection
+            if indexPath == largePhotoIndexPath {
+                var size = collectionView.bounds.size
+                size.height -= topLayoutGuide.length
+                size.height -= (sectionInsets.top + sectionInsets.right)
+                size.width  -= (sectionInsets.left + sectionInsets.right)
+                return flickrPhoto.sizeToFillWidthOfSize(size)
+            }
+            
             //2
             if var size = flickrPhoto.thumbnail?.size {
                 size.width += 10
@@ -105,7 +209,7 @@ extension FlickrPhotosViewController : UICollectionViewDelegateFlowLayout {
                 return size
             }
             
-            return CGSize(width: 0, height: 9)
+            return CGSize(width: 100, height: 100)
     }
     
     // 3
@@ -113,6 +217,23 @@ extension FlickrPhotosViewController : UICollectionViewDelegateFlowLayout {
         return sectionInsets
     }
 }
+
+extension FlickrPhotosViewController : UICollectionViewDelegate {
+    
+    // select the item
+    override func collectionView(collectionView: UICollectionView,
+        shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+            if largePhotoIndexPath == indexPath {
+                largePhotoIndexPath = nil
+            }
+            else {
+                largePhotoIndexPath = indexPath
+            }
+            return false
+    }
+}
+
+
 
 
 

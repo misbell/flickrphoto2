@@ -14,7 +14,7 @@
                         <color key="backgroundColor" red="0.99991267919540405" green="1" blue="0.99988144636154175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Irs-C8-pIw">
                             <size key="itemSize" width="200" height="200"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="headerReferenceSize" width="50" height="90"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
@@ -29,20 +29,46 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hWb-gm-ShM">
                                             <rect key="frame" x="5" y="5" width="190" height="190"/>
                                         </imageView>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Xtz-Hc-Kwi">
+                                            <rect key="frame" x="90" y="90" width="20" height="20"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="Xtz-Hc-Kwi" secondAttribute="centerX" id="CkE-OV-yzJ"/>
                                     <constraint firstItem="hWb-gm-ShM" firstAttribute="leading" secondItem="T3r-tq-fas" secondAttribute="leading" constant="5" id="QHm-Df-mH3"/>
                                     <constraint firstAttribute="bottom" secondItem="hWb-gm-ShM" secondAttribute="bottom" constant="5" id="X8M-w9-YLY"/>
                                     <constraint firstItem="hWb-gm-ShM" firstAttribute="top" secondItem="T3r-tq-fas" secondAttribute="top" constant="5" id="hbt-ll-XCD"/>
                                     <constraint firstAttribute="trailing" secondItem="hWb-gm-ShM" secondAttribute="trailing" constant="5" id="mhr-nt-cad"/>
+                                    <constraint firstAttribute="centerY" secondItem="Xtz-Hc-Kwi" secondAttribute="centerY" id="yvv-Ti-W86"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="activityIndicator" destination="Xtz-Hc-Kwi" id="ko7-Lf-pxw"/>
                                     <outlet property="imageView" destination="hWb-gm-ShM" id="dto-9j-dPS"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.90000000000000002" contentMode="center" reuseIdentifier="FlickrPhotoHeaderView" id="fY3-zQ-0HJ" customClass="FlickrPhotoHeaderView" customModule="FlickrSearch" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="64" width="600" height="50"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iBN-lQ-Pdk">
+                                    <rect key="frame" x="262" y="25" width="77" height="39"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.90456565366972475" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="centerY" secondItem="iBN-lQ-Pdk" secondAttribute="centerY" id="BMm-Ek-ew1"/>
+                                <constraint firstAttribute="centerX" secondItem="iBN-lQ-Pdk" secondAttribute="centerX" id="oeY-yX-HO7"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="label" destination="iBN-lQ-Pdk" id="AgX-Vd-Wdq"/>
+                            </connections>
+                        </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="1iI-16-w6I" id="mkb-Vd-Kh5"/>
                             <outlet property="delegate" destination="1iI-16-w6I" id="cBl-CA-3IB"/>

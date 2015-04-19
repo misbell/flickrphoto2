@@ -11,6 +11,7 @@
 		C91C00981ADEDD13002E23DD /* FlickrSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91C00971ADEDD13002E23DD /* FlickrSearcher.swift */; };
 		C91C009A1ADEE562002E23DD /* MyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91C00991ADEE562002E23DD /* MyExtensions.swift */; };
 		C92502CE1ADE95E600533238 /* FlickrPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92502CD1ADE95E600533238 /* FlickrPhotosViewController.swift */; };
+		C98F159B1AE30D660096F635 /* FlickrPhotoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98F159A1AE30D660096F635 /* FlickrPhotoHeaderView.swift */; };
 		C9DC76991ADD4F3A00EEFED9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DC76981ADD4F3A00EEFED9 /* AppDelegate.swift */; };
 		C9DC769E1ADD4F3A00EEFED9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9DC769C1ADD4F3A00EEFED9 /* Main.storyboard */; };
 		C9DC76A01ADD4F3A00EEFED9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9DC769F1ADD4F3A00EEFED9 /* Images.xcassets */; };
@@ -33,6 +34,7 @@
 		C91C00971ADEDD13002E23DD /* FlickrSearcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrSearcher.swift; sourceTree = "<group>"; };
 		C91C00991ADEE562002E23DD /* MyExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyExtensions.swift; sourceTree = "<group>"; };
 		C92502CD1ADE95E600533238 /* FlickrPhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrPhotosViewController.swift; sourceTree = "<group>"; };
+		C98F159A1AE30D660096F635 /* FlickrPhotoHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrPhotoHeaderView.swift; sourceTree = "<group>"; };
 		C9DC76931ADD4F3A00EEFED9 /* FlickrSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickrSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9DC76971ADD4F3A00EEFED9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9DC76981ADD4F3A00EEFED9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 		C9DC76951ADD4F3A00EEFED9 /* FlickrSearch */ = {
 			isa = PBXGroup;
 			children = (
+				C98F159A1AE30D660096F635 /* FlickrPhotoHeaderView.swift */,
 				C91C00971ADEDD13002E23DD /* FlickrSearcher.swift */,
 				C9DC76981ADD4F3A00EEFED9 /* AppDelegate.swift */,
 				C9DC769C1ADD4F3A00EEFED9 /* Main.storyboard */,
@@ -226,6 +229,7 @@
 				C91A0B4C1AE2EED5004A667E /* FlickrPhotoCell.swift in Sources */,
 				C9DC76991ADD4F3A00EEFED9 /* AppDelegate.swift in Sources */,
 				C91C009A1ADEE562002E23DD /* MyExtensions.swift in Sources */,
+				C98F159B1AE30D660096F635 /* FlickrPhotoHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,6 +359,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = FlickrSearch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -365,6 +370,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = FlickrSearch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
